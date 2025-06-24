@@ -44,7 +44,7 @@ const algorithmDetails = {
       "Not suitable for random data",
       "Limited compression ratio for complex data",
     ],
-    complexity: "Time: O(n), Space: O(1)",
+    complexity: "Time: O(n), Space: O(n)",
   },
   lz77: {
     title: "LZ77 (Lempel-Ziv 1977)",
