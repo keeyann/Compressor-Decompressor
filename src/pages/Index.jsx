@@ -43,7 +43,7 @@ const Index = () => {
     showNotification("File cleared")
   }
 
-  const validateFile = (file) => {
+  const validateFile = (file, isDecompression = false) => {
     // File size validation
     const maxSize = 10 * 1024 * 1024 // 10MB
     if (file.size > maxSize) {
@@ -55,7 +55,19 @@ const Index = () => {
       throw new Error("Cannot process empty files.")
     }
 
-    // Define allowed file types
+    // Get file extension
+    const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf("."))
+    const fileMimeType = file.type.toLowerCase()
+
+    // If decompressing, allow compression algorithm extensions
+    if (isDecompression) {
+      const compressionExtensions = [".huffman", ".rle", ".lz77"]
+      if (compressionExtensions.includes(fileExtension)) {
+        return { isValid: true, category: "compressed" }
+      }
+    }
+
+    // Define allowed file types (rest of the existing code stays the same)
     const allowedTypes = {
       text: {
         extensions: [
@@ -202,10 +214,6 @@ const Index = () => {
       },
     }
 
-    // Get file extension
-    const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf("."))
-    const fileMimeType = file.type.toLowerCase()
-
     // Check if file type is allowed
     let isAllowed = false
     let fileCategory = ""
@@ -233,7 +241,8 @@ const Index = () => {
           `• Text: .txt, .csv, .json, .html, .js, .py, etc.\n` +
           `• Image: .jpg, .png, .gif, .bmp, .webp, .svg, etc.\n` +
           `• Video: .mp4, .avi, .mov, .wmv, .webm, .mkv, etc.\n` +
-          `• Binary: .bin, .exe, .zip, .tar, .gz, .db, etc.`,
+          `• Binary: .bin, .exe, .zip, .tar, .gz, .db, etc.\n` +
+          `• Compressed: .huffman, .rle, .lz77 (for decompression)`,
       )
     }
 
@@ -253,8 +262,8 @@ const Index = () => {
     }
 
     try {
-      // Add file validation
-      const validation = validateFile(uploadedFile)
+      // Add file validation with decompression flag
+      const validation = validateFile(uploadedFile, !compress)
       console.log(`Processing ${validation.category} file: ${uploadedFile.name}`)
 
       setIsProcessing(true)
