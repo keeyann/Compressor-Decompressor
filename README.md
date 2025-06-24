@@ -25,8 +25,8 @@ The tool features real-time compression processing, smart file naming convention
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/file-compression-app.git
-   cd file-compression-app
+   git clone https://github.com/keeyann/Compressor-Decompressor.git
+   cd Compressor-Decompressor
    ```
 
 2. **Install dependencies**
@@ -44,5 +44,5 @@ The tool features real-time compression processing, smart file naming convention
 
 ## Deployed Demo
 
-🔗 **Live Demo:** [https://your-app-demo.vercel.app](https://your-app-demo.vercel.app)
+🔗 **Live Demo:** [https://compressor-decompressor-ashen.vercel.app](https://compressor-decompressor-ashen.vercel.app)
 ```
